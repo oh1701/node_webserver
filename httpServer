@@ -1,0 +1,26 @@
+const http = require('http');
+
+
+const server = http.createServer((req, res) => {
+    // 요청에 대한 응답 작성. (응답 거부 가능.)
+    res.writeHead(200, { 'Content-Type' : 'text/html; charset=utf-8'});
+    res.write('<h1>Hello Node!</h1>');
+    res.write('<p>Hello server</p>');
+    res.end('<p>Hello Zero</p>');
+
+    if(req.url == `/posts` && req.method == "GET"){
+        res.statusCode = 200
+    }
+})
+    .listen(8080);
+server.on('listening', () => {
+    console.log('8080번 포트 서버 대기 중.');
+});
+
+server.on('data', data => {
+    console.log(`받은 데이터는 ${data}`)
+})
+
+server.on('error', (error) => {
+    console.error(error);
+});
