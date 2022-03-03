@@ -1,0 +1,36 @@
+const http = require(`http`); // 기본 내장인 http 모듈
+
+const getOptions = {
+    host : 'localhost',
+    port : 3030,
+    path : "/userinfo",
+    method : 'GET',
+    headers : {
+        'Content-Type' : 'application/x-www-form-urlencoded'
+    }
+};
+
+const postOptions = {
+    host : 'localhost',
+    port : 3030,
+    path : "/userinfo",
+    method : 'POST',
+    id : 200,
+    headers : {
+        'Content-Type' : 'application/x-www-form-urlencoded'
+    }
+};
+
+var req = http.request(getOptions, (res) => {
+    var data = "";
+
+    res.on('data', (chunk) => {
+        data += chunk;
+        console.log(`받아온 데이터 :: ${chunk}`);
+    });
+
+    res.on('end', () => {
+        console.log(`종료되었음 :: ${data}`);
+    });
+});
+req.end();
